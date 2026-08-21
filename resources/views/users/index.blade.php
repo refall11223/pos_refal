@@ -6,245 +6,266 @@
 
 @include('layouts.navbar')
 
+{{-- Import Font Clean & Professional --}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
   :root {
-    --bg-main: #F8F9FA;
-    --card-bg: #FFFFFF;
-    --primary-black: #121212;
-    --soft-black: #2B2B2B;
-    --text-muted: #6C757D;
-    --border-color: #E9ECEF;
-    --hover-bg: #F1F3F5;
+    --color-blue: #2563EB;
+    --color-black: #0F172A;
+    --color-gray: #94A3B8;
+  }
+
+  /* Base Typography Settings */
+  * {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   body {
-    background-color: var(--bg-main);
-    color: var(--primary-black);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-  }
-
-  .serif-font {
-    font-family: 'Cinzel', serif;
-    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, #1E3A8A 0%, var(--color-black) 100%);
+    color: #FFFFFF;
+    min-height: 100vh;
   }
 
   /* Header Section */
-  .page-header {
-    background: linear-gradient(135deg, #121212 0%, #2B2B2B 100%);
-    border-radius: 20px;
-    padding: 2.2rem 2.5rem;
+  .dashboard-header {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
     color: #FFFFFF;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(37, 99, 235, 0.2);
+    border: 1px solid rgba(37, 99, 235, 0.4);
+    color: #93C5FD;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+  }
+
+  .brand-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: #FFFFFF;
+    margin-bottom: 0.25rem;
+  }
+
+  .text-description {
+    font-size: 0.875rem;
+    color: #94A3B8;
+    font-weight: 400;
+  }
+
+  /* Main Card Container */
+  .luxury-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Buttons & Inputs */
+  .btn-create {
+    background-color: var(--color-blue);
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+    transition: background-color 0.2s ease;
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .page-header::after {
-    content: '';
-    position: absolute;
-    top: -50px;
-    right: -50px;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(0,0,0,0) 70%);
-    border-radius: 50%;
-    pointer-events: none;
+  .btn-create:hover {
+    background-color: #1D4ED8;
+    color: #FFFFFF;
   }
 
-  /* Card Container */
-  .content-card {
-    background: var(--card-bg);
-    border-radius: 20px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
-    padding: 2rem;
-  }
-
-  /* Custom Search Form */
   .search-box .form-control {
-    border-radius: 12px 0 0 12px;
-    border: 1px solid var(--border-color);
-    padding: 0.65rem 1.2rem;
-    background-color: var(--bg-main);
-    color: var(--primary-black);
+    border-radius: 8px 0 0 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 0.875rem;
+    background-color: rgba(15, 23, 42, 0.5) !important;
+    color: #FFFFFF !important;
+    font-size: 0.875rem;
+  }
+
+  .search-box .form-control::placeholder {
+    color: var(--color-gray);
   }
 
   .search-box .form-control:focus {
     box-shadow: none;
-    border-color: var(--primary-black);
-    background-color: #FFFFFF;
+    border-color: var(--color-blue);
   }
 
   .search-box .btn-search {
-    background-color: var(--primary-black);
+    background-color: var(--color-blue);
     color: #FFFFFF;
-    border-radius: 0 12px 12px 0;
-    padding: 0.65rem 1.4rem;
-    font-weight: 600;
-    border: 1px solid var(--primary-black);
-    transition: all 0.3s ease;
+    border-radius: 0 8px 8px 0;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
   }
 
-  .search-box .btn-search:hover {
-    background-color: var(--soft-black);
-    color: #FFFFFF;
+  /* Table Custom */
+  .table-responsive {
+    overflow-x: auto;
   }
 
-  /* Action Buttons */
-  .btn-create {
-    background-color: var(--primary-black);
-    color: #FFFFFF;
-    border: 1px solid var(--primary-black);
-    border-radius: 12px;
-    padding: 0.7rem 1.4rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
-
-  .btn-create:hover {
-    background-color: #FFFFFF;
-    color: var(--primary-black);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Table Custom Styling */
   .table-custom {
+    --bs-table-bg: transparent !important;
+    --bs-table-color: #FFFFFF !important;
     margin-bottom: 0;
+    width: 100%;
   }
 
   .table-custom thead th {
-    background: var(--bg-main);
-    border-bottom: 2px solid var(--border-color);
-    color: var(--primary-black);
+    background: rgba(15, 23, 42, 0.6) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    color: #94A3B8 !important;
     font-size: 0.75rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 14px 16px;
-    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 0.75rem 0.75rem;
   }
 
   .table-custom tbody td {
-    padding: 16px;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--primary-black);
-    font-size: 0.9rem;
+    padding: 0.75rem 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: #FFFFFF !important;
+    font-size: 0.875rem;
+    vertical-align: middle;
   }
 
-  .table-custom tbody tr:last-child td {
-    border-bottom: none;
+  .table-custom tbody tr:hover td {
+    background-color: rgba(255, 255, 255, 0.04) !important;
   }
 
-  .table-custom tbody tr:hover {
-    background-color: var(--hover-bg);
+  /* Font Monospace untuk Angka & Email */
+  .font-number {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.85rem;
   }
 
   /* Role Badges */
-  .badge-role-admin {
-    background-color: var(--primary-black);
-    color: #FFFFFF;
-    border: 1px solid var(--primary-black);
-    padding: 6px 14px;
-    border-radius: 30px;
-    font-weight: 700;
+  .badge-role {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 6px;
     font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .badge-role-admin {
+    background-color: rgba(37, 99, 235, 0.2);
+    color: #93C5FD;
+    border: 1px solid rgba(37, 99, 235, 0.3);
   }
 
   .badge-role-user {
-    background-color: #495057;
-    color: #FFFFFF;
-    border: 1px solid #495057;
-    padding: 6px 14px;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 0.75rem;
+    background-color: rgba(148, 163, 184, 0.15);
+    color: #E2E8F0;
+    border: 1px solid rgba(148, 163, 184, 0.25);
   }
 
   .badge-role-default {
-    background-color: var(--bg-main);
-    color: var(--text-muted);
-    border: 1px solid #CED4DA;
-    padding: 6px 14px;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 0.75rem;
+    background-color: rgba(15, 23, 42, 0.6);
+    color: var(--color-gray);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Custom Action Buttons in Table */
-  .btn-action-edit {
-    background-color: var(--bg-main);
-    color: var(--primary-black);
-    border: 1px solid #CED4DA;
-    border-radius: 10px;
-    padding: 6px 14px;
-    font-weight: 600;
-    font-size: 0.825rem;
-    transition: all 0.2s ease;
+  /* Action Buttons */
+  .btn-action {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #E2E8F0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+  }
+
+  .btn-action:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #FFFFFF;
   }
 
   .btn-action-edit:hover {
-    background-color: #E9ECEF;
-    color: var(--primary-black);
-    border-color: #ADB5BD;
-  }
-
-  .btn-action-delete {
-    background-color: #FFFFFF;
-    color: #DC3545;
-    border: 1px solid #DC3545;
-    border-radius: 10px;
-    padding: 6px 14px;
-    font-weight: 600;
-    font-size: 0.825rem;
-    transition: all 0.2s ease;
+    background-color: var(--color-blue);
+    border-color: var(--color-blue);
+    color: #FFFFFF;
   }
 
   .btn-action-delete:hover {
-    background-color: #DC3545;
+    background-color: #DC2626;
+    border-color: #DC2626;
     color: #FFFFFF;
   }
 
-  /* Pagination Styling */
-  .pagination {
-    margin-bottom: 0;
-  }
-
+  /* Pagination */
   .page-link {
-    color: var(--primary-black);
-    border-color: var(--border-color);
+    color: #94A3B8;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    font-size: 0.85rem;
   }
 
   .page-item.active .page-link {
-    background-color: var(--primary-black);
-    border-color: var(--primary-black);
+    background-color: var(--color-blue);
+    border-color: var(--color-blue);
     color: #FFFFFF;
-  }
-
-  .page-link:hover {
-    color: var(--primary-black);
-    background-color: var(--hover-bg);
   }
 </style>
 
 <div class="container my-4">
-  <div class="page-header d-flex justify-content-between align-items-center flex-wrap gap-3">
-    <div>
-      <h2 class="serif-font fw-bold m-0 fs-2">Manajemen User</h2>
-      <p class="text-white-50 m-0 mt-1">Kelola data pengguna, hak akses, dan peran sistem.</p>
+
+  @if(session('errors'))
+    <div class="alert alert-danger border-0 bg-danger text-white bg-opacity-75 rounded-3 mb-3 fs-7">
+      {{ session('errors') }}
     </div>
-    <div class="d-none d-md-block">
-      <i class="bi bi-people display-4 text-white" style="opacity: 0.15;"></i>
+  @endif
+  
+  {{-- Header Section --}}
+  <div class="dashboard-header d-flex align-items-center justify-content-between flex-wrap gap-3">
+    <div>
+      <div class="header-badge">
+        <i class="bi bi-people"></i> Pengguna
+      </div>
+      <h1 class="brand-title">Manajemen User</h1>
+      <p class="text-description m-0">Kelola data pengguna, hak akses, dan peran sistem.</p>
     </div>
   </div>
 
-  <div class="content-card">
-    <div class="row g-3 justify-content-between align-items-center mb-4">
+  {{-- Main Card --}}
+  <div class="luxury-card">
+    <div class="row g-2 justify-content-between align-items-center mb-3">
       <div class="col-md-5 col-lg-4">
         <a href="{{ route('admin.users.create') }}" class="btn btn-create d-inline-flex align-items-center gap-2">
           <i class="bi bi-person-plus-fill"></i> Tambah User Baru
@@ -269,53 +290,53 @@
       </div>
     </div>
 
+    {{-- Tabel --}}
     <div class="table-responsive">
       <table class="table table-custom align-middle">
         <thead>
           <tr>
-            <th scope="col" style="width: 5%;">#</th>
+            <th scope="col" class="text-center" style="width: 40px;">#</th>
             <th scope="col">Nama Pengguna</th>
             <th scope="col">Email</th>
             <th scope="col" class="text-center">Peran (Role)</th>      
-            <th scope="col" class="text-center" style="width: 20%;">Aksi</th>      
+            <th scope="col" class="text-center" style="width: 150px;">Aksi</th>      
           </tr>
         </thead>
         <tbody>
           @forelse($users as $user)
           @php
-              // Penanganan kondisi aman jika role berupa object relation atau kolom string
               $roleName = is_object($user->role) ? ($user->role->name ?? '-') : ($user->role ?? '-');
               $roleLower = strtolower($roleName);
           @endphp
           <tr>
-            <td class="text-muted fs-7">{{ $users->firstItem() + $loop->index }}</td>
-            <td class="fw-bold text-dark">
+            <td class="text-center text-white-50 font-number">{{ $users->firstItem() + $loop->index }}</td>
+            <td class="fw-semibold text-white">
               <div class="d-flex align-items-center gap-2">
-                <i class="bi bi-person-circle text-muted fs-5"></i>
+                <i class="bi bi-person-circle text-white-50 fs-6"></i>
                 <span>{{ $user->name }}</span>
               </div>
             </td>
-            <td class="text-secondary">{{ $user->email }}</td>
+            <td class="text-white-50 font-number">{{ $user->email }}</td>
             <td class="text-center">
               @if($roleLower == 'admin')
-                <span class="badge-role-admin"><i class="bi bi-shield-lock-fill me-1"></i> {{ $roleName }}</span>
+                <span class="badge-role badge-role-admin"><i class="bi bi-shield-lock-fill"></i> {{ $roleName }}</span>
               @elseif(in_array($roleLower, ['user', 'kasir']))
-                <span class="badge-role-user"><i class="bi bi-person-badge me-1"></i> {{ $roleName }}</span>
+                <span class="badge-role badge-role-user"><i class="bi bi-person-badge"></i> {{ $roleName }}</span>
               @else
-                <span class="badge-role-default">{{ $roleName }}</span>
+                <span class="badge-role badge-role-default">{{ $roleName }}</span>
               @endif
             </td>
-            <td class="text-center">
-              <div class="d-flex justify-content-center gap-2">
-                <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-action-edit text-decoration-none">
-                  <i class="bi bi-pencil-square me-1"></i> Edit
+            <td>
+              <div class="d-flex justify-content-center align-items-center gap-1">
+                <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-action btn-action-edit text-decoration-none" title="Edit">
+                  <i class="bi bi-pencil-square"></i> Edit
                 </a>
                 
                 <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline">
                   @csrf
                   @method('DELETE')
-                  <button type="submit" class="btn btn-action-delete" onclick="return confirm('Yakin ingin menghapus user ini?')">
-                    <i class="bi bi-trash3 me-1"></i> Hapus
+                  <button type="submit" class="btn btn-action btn-action-delete" onclick="return confirm('Yakin ingin menghapus user ini?')" title="Hapus">
+                    <i class="bi bi-trash3"></i> Hapus
                   </button>
                 </form>
               </div>
@@ -323,20 +344,21 @@
           </tr>
           @empty
           <tr>
-            <td colspan="5" class="text-muted text-center py-5">
-              <i class="bi bi-person-exclamation fs-1 d-block text-muted mb-2"></i>
+            <td colspan="5" class="text-white-50 text-center py-4">
+              <i class="bi bi-person-exclamation fs-3 d-block text-white-50 mb-1"></i>
               Tidak ada data user yang ditemukan.
             </td>
           </tr>
-          @endempty
+          @endforelse
         </tbody>
       </table>
     </div>
 
-    <div class="mt-4">
+    <div class="mt-3">
       {{ $users->links() }}
     </div>
   </div>
+
 </div>
 
 @endsection

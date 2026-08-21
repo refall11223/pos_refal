@@ -51,19 +51,22 @@ class ProdukController extends Controller
 
         $data = [
             'user_id'    => Auth::id(),
-            'nama'       => $dataReq['name'],
-            'harga_beli' => $dataReq['purchase_price'],
-            'harga_jual' => $dataReq['selling_price'],
-            'stok'       => $dataReq['stock'] ?? 0,
+            'nama'       => $dataReq['nama'] ?? $dataReq['name'] ?? '',
+            'harga_beli' => $dataReq['harga_beli'] ?? $dataReq['purchase_price'] ?? 0,
+            'harga_jual' => $dataReq['harga_jual'] ?? $dataReq['selling_price'] ?? 0,
+            'stok'       => $dataReq['stok'] ?? $dataReq['stock'] ?? 0,
         ];
 
+        // Mencegah error 'Field foto doesn't have a default value'
         if ($request->hasFile('foto')) {
             $data['foto'] = $request->file('foto')->store('products', 'public');
+        } else {
+            $data['foto'] = 'products/default.jpg'; // Teks default jika tidak mengunggah foto
         }
 
         Produk::create($data);
 
-        return redirect()->route('produk.index')->with('success', 'Product created successfully.');
+        return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan.');
     }
 
     /**
@@ -97,26 +100,23 @@ class ProdukController extends Controller
 
         $data = [
             'user_id'    => Auth::id(),
-            'nama'       => $dataReq['name'],
-            'harga_beli' => $dataReq['purchase_price'],
-            'harga_jual' => $dataReq['selling_price'],
-            'stok'       => $dataReq['stock'] ?? 0,
+            'nama'       => $dataReq['nama'] ?? $dataReq['name'] ?? '',
+            'harga_beli' => $dataReq['harga_beli'] ?? $dataReq['purchase_price'] ?? 0,
+            'harga_jual' => $dataReq['harga_jual'] ?? $dataReq['selling_price'] ?? 0,
+            'stok'       => $dataReq['stok'] ?? $dataReq['stock'] ?? 0,
         ];
 
-        // Jika upload foto baru
         if ($request->hasFile('foto')) {
-            // Hapus foto lama (jika ada & memang tersimpan di storage)
-            if ($produk->foto && Storage::disk('public')->exists($produk->foto)) {
+            if ($produk->foto && $produk->foto !== 'products/default.jpg' && Storage::disk('public')->exists($produk->foto)) {
                 Storage::disk('public')->delete($produk->foto);
             }
 
-            // Simpan foto baru
             $data['foto'] = $request->file('foto')->store('products', 'public');
         }
 
         $produk->update($data);
 
-        return redirect()->route('produk.edit', $produk->id)->with('success', 'Product updated successfully.');
+        return redirect()->route('produk.index')->with('success', 'Produk berhasil diperbarui.');
     }
 
     /**
@@ -126,19 +126,10 @@ class ProdukController extends Controller
     {
         $this->authorize('delete', $produk);
 
-        // Cek apakah produk masih digunakan pada item penjualan
-        if ($produk->itemPenjualan()->exists()) {
-            return redirect()
-                ->route('produk.index')
-                ->with('error', 'Produk tidak dapat dihapus karena sudah digunakan pada transaksi penjualan.');
-        }
-
-        // Hapus foto jika ada
-        if ($produk->foto && Storage::disk('public')->exists($produk->foto)) {
+        if ($produk->foto && $produk->foto !== 'products/default.jpg' && Storage::disk('public')->exists($produk->foto)) {
             Storage::disk('public')->delete($produk->foto);
         }
 
-        // Hapus produk
         $produk->delete();
 
         return redirect()

@@ -1,3 +1,7 @@
+@php
+    $isAdmin = (optional(auth()->user()->role)->name === 'admin' || auth()->user()->role === 'admin');
+@endphp
+
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top tshirt-navbar">
     <div class="container">
 
@@ -22,23 +26,26 @@
                     <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}"
                        href="{{ route('dashboard') }}">
                         <i class="bi bi-grid-fill me-1"></i>
-                        Dashboard
+                        Beranda
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('admin/users*') ? 'active' : '' }}"
-                       href="{{ route('admin.users') }}">
-                        <i class="bi bi-people-fill me-1"></i>
-                        T-Shirt Users
-                    </a>
-                </li>
+                {{-- Menu Users HANYA TAMPIL untuk Admin --}}
+                @if($isAdmin)
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('admin/users*') ? 'active' : '' }}"
+                           href="{{ route('admin.users') }}">
+                            <i class="bi bi-people-fill me-1"></i>
+                            Users
+                        </a>
+                    </li>
+                @endif
 
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('produk*') ? 'active' : '' }}"
                        href="{{ route('produk.index') }}">
                         <i class="bi bi-box-seam me-1"></i>
-                        Produk T-Shirt
+                        Produk
                     </a>
                 </li>
 
@@ -47,6 +54,14 @@
                        href="{{ route('penjualan.index') }}">
                         <i class="bi bi-cart-check-fill me-1"></i>
                         Penjualan
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('tentang*') ? 'active' : '' }}"
+                       href="{{ route('tentang') }}">
+                        <i class="bi bi-person-badge-fill me-1"></i>
+                        Tentang Saya
                     </a>
                 </li>
 
@@ -61,7 +76,7 @@
                     </small>
 
                     <strong>
-                        {{ Auth::user()->name ?? 'Admin' }}
+                        {{ Auth::user()->name ?? 'Pengguna' }}
                     </strong>
 
                 </div>

@@ -6,447 +6,630 @@
 
 @include('layouts.navbar')
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
 <style>
-  :root {
-    --bg-main: #f8f9fa;
-    --card-bg: #ffffff;
-    --border-gray: #e9ecef;
-    --dark-primary: #121212;
-    --dark-secondary: #212529;
-    --gray-muted: #6c757d;
-    --gray-light: #f1f3f5;
-  }
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-  body {
-    background-color: var(--bg-main);
-    color: var(--dark-secondary);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-  }
+    :root {
+        --color-blue: #2563EB;
+        --color-blue-glow: rgba(37, 99, 235, 0.4);
+        --color-black: #0F172A;
+        --color-gray: #94A3B8;
+    }
 
-  /* Header Section */
-  .page-header {
-    background: linear-gradient(135deg, #1c1e21 0%, #343a40 100%);
-    border-radius: 16px;
-    padding: 2rem 2.5rem;
-    color: #ffffff;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    margin-bottom: 2rem;
-  }
+    /* ================= GLOBAL ================= */
+    html, body {
+        background: #0F172A !important;
+        background: linear-gradient(135deg, #1E3A8A 0%, #0F172A 100%) !important;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        color: #FFFFFF !important;
+        min-height: 100vh;
+    }
 
-  .status-badge {
-    background: #ffffff;
-    color: var(--dark-primary);
-    padding: 8px 20px;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 0.9rem;
-  }
+    /* Ornamen Glow Background */
+    .pos-wrapper {
+        position: relative;
+        overflow: hidden;
+        min-height: calc(100vh - 80px);
+        padding-bottom: 3rem;
+    }
 
-  /* Main Cards */
-  .pos-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-gray);
-    border-radius: 16px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-    overflow: hidden;
-  }
+    .pos-wrapper::before {
+        content: '';
+        position: absolute;
+        top: -150px;
+        left: -150px;
+        width: 500px;
+        height: 500px;
+        background: var(--color-blue-glow);
+        filter: blur(140px);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 0;
+    }
 
-  .pos-card-header {
-    background: var(--gray-light);
-    border-bottom: 1px solid var(--border-gray);
-    padding: 1.25rem 1.5rem;
-  }
+    .container-fluid {
+        position: relative;
+        z-index: 1;
+    }
 
-  /* Search Input */
-  .pos-search {
-    border-radius: 10px;
-    border: 1px solid var(--border-gray);
-    padding: 0.75rem 1.25rem;
-    font-size: 0.95rem;
-    background-color: #ffffff;
-  }
+    /* ================= HEADER ================= */
+    .page-header {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 22px 28px;
+        color: #FFFFFF;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        margin-bottom: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
 
-  .pos-search:focus {
-    border-color: var(--dark-primary);
-    box-shadow: 0 0 0 0.2rem rgba(33, 37, 41, 0.15);
-  }
+    .page-header h2 {
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 4px;
+        letter-spacing: 0.5px;
+    }
 
-  /* Product Items */
-  .product-item-card {
-    background: #ffffff;
-    border: 1px solid var(--border-gray);
-    border-radius: 12px;
-    padding: 1rem;
-    transition: all 0.2s ease;
-  }
+    .page-header p {
+        font-size: 14px;
+        margin: 0;
+        color: var(--color-gray);
+    }
 
-  .product-item-card:hover {
-    border-color: var(--dark-primary);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
+    .status-box {
+        background: rgba(15, 23, 42, 0.6);
+        color: #FFFFFF;
+        padding: 8px 18px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 13px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-  .product-thumb-pos {
-    width: 65px;
-    height: 65px;
-    border-radius: 8px;
-    object-fit: cover;
-    border: 1px solid var(--border-gray);
-  }
+    /* ================= CARD ================= */
+    .pos-card {
+        background: rgba(30, 41, 59, 0.6) !important;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
 
-  .product-thumb-placeholder {
-    width: 65px;
-    height: 65px;
-    border-radius: 8px;
-    background-color: var(--gray-light);
-    color: var(--dark-secondary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    border: 1px dashed #adb5bd;
-  }
+    .pos-card-header {
+        background: rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 18px 22px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-  .price-tag {
-    background: var(--gray-light);
-    color: var(--dark-primary);
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-weight: 700;
-    font-size: 0.9rem;
-  }
+    .pos-card-header span {
+        font-size: 18px;
+        font-weight: 700;
+        color: #FFFFFF;
+    }
 
-  .qty-input-pos {
-    border-radius: 8px;
-    border: 1px solid var(--border-gray);
-    text-align: center;
-    font-weight: 600;
-  }
+    .pos-card-header small {
+        color: var(--color-gray);
+        font-weight: 500;
+        font-size: 12px;
+    }
 
-  .btn-add-pos {
-    background: var(--dark-primary);
-    border: none;
-    border-radius: 8px;
-    color: #ffffff;
-    font-weight: 600;
-    transition: all 0.2s ease;
-  }
+    /* ================= SEARCH ================= */
+    .pos-search {
+        height: 48px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        background-color: rgba(15, 23, 42, 0.5) !important;
+        color: #FFFFFF !important;
+        font-size: 14px;
+        padding-left: 20px;
+        transition: all 0.3s ease;
+    }
 
-  .btn-add-pos:hover {
-    background: #343a40;
-    color: #ffffff;
-  }
+    .pos-search::placeholder {
+        color: #64748B !important;
+    }
 
-  /* Cart Area */
-  .cart-table thead th {
-    background: var(--gray-light);
-    border: none;
-    color: var(--dark-secondary);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 12px 14px;
-    font-weight: 700;
-  }
+    .pos-search:focus {
+        border-color: var(--color-blue) !important;
+        box-shadow: 0 0 15px var(--color-blue-glow) !important;
+        background-color: rgba(15, 23, 42, 0.8) !important;
+    }
 
-  .cart-table tbody td {
-    padding: 12px 14px;
-    border-bottom: 1px solid var(--border-gray);
-    font-size: 0.9rem;
-  }
+    /* ================= PRODUCT CARD ================= */
+    .product-item-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        padding: 12px;
+        transition: all 0.3s ease;
+        margin-bottom: 8px;
+    }
 
-  /* Total Section */
-  .total-display-card {
-    background: var(--dark-primary);
-    border-radius: 12px;
-    padding: 1.5rem;
-    color: #ffffff;
-    text-align: center;
-  }
+    .product-item-card:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(147, 197, 253, 0.4);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+    }
 
-  .btn-checkout {
-    background: var(--dark-primary);
-    border: none;
-    border-radius: 10px;
-    color: #ffffff;
-    font-weight: 700;
-    padding: 0.8rem;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-  }
+    /* ================= FOTO PRODUK ================= */
+    .product-thumb-pos {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        object-fit: cover;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .product-thumb-placeholder {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+    }
 
-  .btn-checkout:hover {
-    background: #343a40;
-    color: #ffffff;
-  }
+    /* ================= NAMA PRODUK ================= */
+    .product-name {
+        font-size: 15px;
+        font-weight: 700;
+        color: #FFFFFF;
+        margin-bottom: 4px;
+    }
 
-  .btn-cancel-pos {
-    border-radius: 10px;
-    font-weight: 600;
-    padding: 0.7rem;
-    border-color: #dc3545;
-    color: #dc3545;
-  }
+    /* ================= HARGA ================= */
+    .price-tag {
+        display: inline-block;
+        background: rgba(37, 99, 235, 0.2);
+        color: #93C5FD;
+        border: 1px solid rgba(37, 99, 235, 0.3);
+        padding: 3px 10px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 700;
+    }
 
-  .btn-cancel-pos:hover {
-    background-color: #dc3545;
-    color: #ffffff;
-  }
+    /* ================= QUANTITY ================= */
+    .qty-input-pos {
+        width: 65px;
+        height: 40px;
+        border-radius: 10px !important;
+        text-align: center;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        background: rgba(15, 23, 42, 0.6) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        color: #FFFFFF !important;
+    }
+    
+    .qty-input-pos:focus {
+        border-color: var(--color-blue) !important;
+        box-shadow: 0 0 10px var(--color-blue-glow) !important;
+    }
+
+    /* ================= BUTTON TAMBAH ================= */
+    .btn-add-pos {
+        height: 40px;
+        min-width: 44px;
+        border: none;
+        border-radius: 10px;
+        background: var(--color-blue);
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .btn-add-pos:hover {
+        background: #1D4ED8;
+        transform: scale(1.05);
+        box-shadow: 0 0 15px var(--color-blue-glow);
+    }
+
+    /* ================= CART ================= */
+    .cart-table th {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--color-gray);
+        text-transform: uppercase;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        background: transparent !important;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .cart-table td {
+        vertical-align: middle;
+        font-size: 13px;
+        color: #FFFFFF;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        background: transparent !important;
+    }
+
+    /* ================= TOTAL ================= */
+    .payment-section {
+        background: rgba(15, 23, 42, 0.4);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 20px;
+    }
+
+    .total-display-card {
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(15, 23, 42, 0.8));
+        border: 1px solid rgba(37, 99, 235, 0.3);
+        border-radius: 14px;
+        padding: 20px;
+        color: #FFFFFF;
+        text-align: center;
+        box-shadow: inset 0 0 20px rgba(37, 99, 235, 0.1);
+    }
+
+    .total-display-card small {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #93C5FD;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .total-display-card h3 {
+        font-size: 34px;
+        font-weight: 800;
+        margin-top: 5px;
+        margin-bottom: 0;
+        color: #FFFFFF;
+        text-shadow: 0 0 15px rgba(255,255,255,0.3);
+    }
+
+    /* ================= FORM INPUTS & CHECKOUT ================= */
+    .form-select {
+        background-color: rgba(15, 23, 42, 0.6) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        color: #FFFFFF !important;
+        border-radius: 12px !important;
+        height: 45px;
+    }
+    
+    .form-select option {
+        background-color: var(--color-black);
+        color: #FFFFFF;
+    }
+
+    .btn-checkout {
+        height: 50px;
+        border: none;
+        border-radius: 12px;
+        background: #10B981; /* Emerald Green */
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 700;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-checkout:hover {
+        background: #059669;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-cancel-pos {
+        height: 45px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        border: 1px solid rgba(239, 68, 68, 0.5);
+        color: #FCA5A5;
+        background: rgba(239, 68, 68, 0.1);
+        transition: all 0.3s;
+    }
+    
+    .btn-cancel-pos:hover {
+        background: rgba(239, 68, 68, 0.2);
+        color: #FFFFFF;
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.25);
+    }
 </style>
 
-<div class="container-fluid px-4 my-4">
+<div class="pos-wrapper">
+    <div class="container-fluid px-4 pt-4 pb-5">
 
-  @if(session('errors'))
-  <div class="alert alert-dark alert-dismissible fade show rounded-3 mb-4" role="alert">
-    <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ session('errors') }}
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-  @endif
+        {{-- NOTIFIKASI ERROR (Aman untuk Object maupun String) --}}
+        @if(isset($errors) && is_object($errors) && $errors->any())
+            <div class="alert alert-danger mb-4" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #FCA5A5; border-radius: 12px;">
+                <ul class="mb-0 px-3">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @elseif(session('errors') && is_string(session('errors')))
+            <div class="alert alert-danger mb-4" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #FCA5A5; border-radius: 12px;">
+                {{ session('errors') }}
+            </div>
+        @elseif(session('error'))
+            <div class="alert alert-danger mb-4" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #FCA5A5; border-radius: 12px;">
+                {{ session('error') }}
+            </div>
+        @endif
 
-  {{-- Header --}}
-  <div class="page-header d-flex justify-content-between align-items-center flex-wrap gap-3">
-    <div>
-      <h2 class="fw-bold m-0 fs-2">
-        <i class="bi bi-calculator me-2"></i>{{ isset($mode) && $mode == 'edit' ? 'Edit Penjualan' : 'Kasir / Point of Sale' }}
-      </h2>
-      <p class="text-white-50 m-0 mt-1">
-        Pilih produk dan selesaikan transaksi dengan cepat.
-      </p>
-    </div>
+        {{-- NOTIFIKASI SUKSES --}}
+        @if(session('success'))
+            <div class="alert alert-success mb-4" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #6EE7B7; border-radius: 12px;">
+                {{ session('success') }}
+            </div>
+        @endif
 
-    <div class="status-badge">
-      Status : 
-      <span class="fw-bold">
-        {{ $sale->status ?? 'OPEN' }}
-      </span>
-    </div>
-  </div>
+        {{-- ================= HEADER ================= --}}
+        <div class="page-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div>
+                <h2>🖥️ {{ (isset($mode) && $mode == 'edit') ? 'Edit Penjualan' : 'Kasir / Point of Sale' }}</h2>
+                <p>Pilih produk dan selesaikan transaksi kasir dengan antarmuka yang modern.</p>
+            </div>
 
-  <div class="row g-4">
-    {{-- KATALOG PRODUK --}}
-    <div class="col-lg-7">
-      <div class="pos-card h-100 d-flex flex-column">
-        <div class="pos-card-header d-flex justify-content-between align-items-center">
-          <h5 class="fw-bold m-0 text-dark">
-            <i class="bi bi-grid me-2"></i>Katalog Produk
-          </h5>
-          <small class="text-muted">Klik item untuk menambah ke keranjang</small>
+            <div class="status-box shadow-sm">
+                Status Transaksi :
+                <span class="{{ ($sale->status ?? '') == 'COMPLETED' ? 'text-success' : 'text-warning' }} ms-1">
+                    {{ $sale->status ?? 'OPEN' }}
+                </span>
+            </div>
         </div>
 
-        <div class="card-body p-4 d-flex flex-column flex-grow-1">
-          <form method="GET" action="{{ route('penjualan.create') }}" class="mb-4">
-            <div class="position-relative">
-              <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
-              <input
-                type="text"
-                name="search"
-                value="{{ request('search') }}"
-                class="form-control pos-search ps-5"
-                placeholder="Cari produk..."
-                onkeyup="this.form.submit()">
-            </div>
-          </form>
+        {{-- ================= CONTENT ================= --}}
+        <div class="row g-4">
 
-          <div class="flex-grow-1" style="max-height: 600px; overflow-y: auto; padding-right: 4px;">
-            <div class="row g-3">
-              @forelse($products as $product)
-              <div class="col-12">
-                <form action="{{ route('itempenjualan.store') }}" method="POST" class="product-item-card">
-                  @csrf
-                  <input type="hidden" name="produk_id" value="{{ $product->id }}">
+            {{-- ================= KATALOG PRODUK ================= --}}
+            <div class="col-lg-7">
+                <div class="pos-card h-100">
 
-                  <div class="row align-items-center g-3">
-                    {{-- Foto --}}
-                    <div class="col-auto">
-                      @if($product->foto)
-                        <img src="{{ asset('storage/'.$product->foto) }}" class="product-thumb-pos" alt="{{ $product->nama }}">
-                      @else
-                        <div class="product-thumb-placeholder">
-                          <i class="bi bi-box-seam"></i>
+                    <div class="pos-card-header">
+                        <span>🛍️ Katalog Produk</span>
+                        <small>Pilih item untuk ditambahkan</small>
+                    </div>
+
+                    <div class="card-body p-4">
+
+                        {{-- SEARCH FORM --}}
+                        <form method="GET" action="{{ route('penjualan.create') }}" class="mb-4">
+                            <input
+                                type="text"
+                                name="search"
+                                value="{{ request('search') }}"
+                                class="form-control pos-search"
+                                placeholder="🔍 Ketik nama produk lalu tekan Enter..."
+                            >
+                        </form>
+
+                        {{-- LIST PRODUK --}}
+                        <div style="max-height: 580px; overflow-y: auto; padding-right: 8px;">
+                            <div class="row g-2">
+                                @forelse($products as $product)
+                                    <div class="col-12">
+                                        <form action="{{ route('itempenjualan.store') }}" method="POST" class="product-item-card">
+                                            @csrf
+                                            <input type="hidden" name="produk_id" value="{{ $product->id }}">
+                                            @if(isset($sale->id))
+                                                <input type="hidden" name="penjualan_id" value="{{ $sale->id }}">
+                                            @endif
+
+                                            <div class="row align-items-center g-3">
+                                                {{-- FOTO --}}
+                                                <div class="col-auto">
+                                                    @if($product->foto)
+                                                        <img src="{{ asset('storage/'.$product->foto) }}" class="product-thumb-pos" alt="{{ $product->nama }}">
+                                                    @else
+                                                        <div class="product-thumb-placeholder">📦</div>
+                                                    @endif
+                                                </div>
+
+                                                {{-- DETAIL PRODUK --}}
+                                                <div class="col">
+                                                    <div class="product-name">{{ $product->nama }}</div>
+                                                    <div>
+                                                        <span class="price-tag">
+                                                            Rp {{ number_format($product->harga_jual, 0, ',', '.') }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                {{-- INPUT QUANTITY --}}
+                                                <div class="col-auto">
+                                                    <input
+                                                        type="number"
+                                                        name="kuantitas"
+                                                        value="1"
+                                                        min="1"
+                                                        class="form-control qty-input-pos"
+                                                        {{ ($sale->status ?? '') == 'COMPLETED' ? 'disabled' : '' }}>
+                                                </div>
+
+                                                {{-- SUBMIT BUTTON + --}}
+                                                <div class="col-auto">
+                                                    <button
+                                                        type="submit"
+                                                        class="btn btn-add-pos d-flex align-items-center justify-content-center"
+                                                        {{ ($sale->status ?? '') == 'COMPLETED' ? 'disabled' : '' }}>
+                                                        <i class="bi bi-plus-lg"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                @empty
+                                    <div class="col-12 text-center py-5">
+                                        <div style="font-size: 3rem; color: rgba(255,255,255,0.2); margin-bottom: 15px;">🔍</div>
+                                        <h5 style="color: var(--color-gray)">Produk tidak ditemukan</h5>
+                                    </div>
+                                @endforelse
+                            </div>
                         </div>
-                      @endif
+
                     </div>
-
-                    {{-- Nama & Harga --}}
-                    <div class="col">
-                      <h6 class="fw-bold mb-1 text-dark fs-6">{{ $product->nama }}</h6>
-                      <span class="price-tag">
-                        Rp {{ number_format($product->harga_jual ?? 0, 0, ',', '.') }}
-                      </span>
-                    </div>
-
-                    {{-- Qty & Button --}}
-                    <div class="col-auto d-flex align-items-center gap-2">
-                      <input
-                        type="number"
-                        name="quantity"
-                        value="1"
-                        min="1"
-                        class="form-control qty-input-pos"
-                        style="width: 70px;"
-                        {{ ($sale->status ?? '') == 'COMPLETED' ? 'disabled' : '' }}>
-
-                      <button
-                        class="btn btn-add-pos px-3 py-2 {{ ($sale->status ?? '') == 'COMPLETED' ? 'disabled' : '' }}"
-                        type="submit"
-                        title="Tambah ke Keranjang">
-                        <i class="bi bi-plus-lg"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              @empty
-              <div class="col-12 text-center py-5">
-                <i class="bi bi-search display-4 text-muted mb-3 d-block"></i>
-                <h5 class="text-secondary fw-semibold">Produk tidak ditemukan</h5>
-                <p class="text-muted small">Coba masukkan kata kunci pencarian lain.</p>
-              </div>
-              @endforelse
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {{-- KERANJANG BELANJA --}}
-    <div class="col-lg-5">
-      <div class="pos-card h-100 d-flex flex-column justify-content-between">
-        <div>
-          <div class="pos-card-header d-flex justify-content-between align-items-center">
-            <h5 class="fw-bold m-0 text-dark">
-              <i class="bi bi-cart3 me-2"></i>Keranjang Belanja
-            </h5>
-            <span class="badge bg-dark rounded-pill px-3 py-2">
-              {{ count($sale->itempenjualan ?? []) }} Item
-            </span>
-          </div>
-
-          <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
-            <table class="table cart-table align-middle mb-0">
-              <thead>
-                <tr>
-                  <th>Produk</th>
-                  <th width="100" class="text-center">Qty</th>
-                  <th class="text-end">Subtotal</th>
-                  <th width="40"></th>
-                </tr>
-              </thead>
-              <tbody>
-                @forelse($sale->itempenjualan ?? [] as $item)
-                <tr>
-                  <td>
-                    <div class="fw-bold text-dark">{{ $item->produk->nama ?? 'Produk Dihapus' }}</div>
-                    <small class="text-muted">
-                      Rp {{ number_format($item->produk->harga_jual ?? $item->harga_satuan ?? 0, 0, ',', '.') }}
-                    </small>
-                  </td>
-
-                  <td>
-                    <form method="POST" action="{{ route('itempenjualan.update', $item->id) }}">
-                      @csrf
-                      @method('PUT')
-                      <input
-                        type="number"
-                        name="quantity"
-                        value="{{ $item->kuantitas }}"
-                        min="1"
-                        class="form-control qty-input-pos form-control-sm"
-                        onchange="this.form.submit()"
-                        {{ ($sale->status ?? '') == 'COMPLETED' ? 'disabled' : '' }}>
-                    </form>
-                  </td>
-
-                  <td class="text-end fw-bold text-dark">
-                    Rp {{ number_format($item->subtotal ?? 0, 0, ',', '.') }}
-                  </td>
-
-                  <td class="text-center">
-                    @can('delete', $item)
-                    <form method="POST" action="{{ route('itempenjualan.destroy', $item->id) }}">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn btn-sm btn-link text-dark p-0" title="Hapus Item">
-                        <i class="bi bi-trash fs-6"></i>
-                      </button>
-                    </form>
-                    @endcan
-                  </td>
-                </tr>
-                @empty
-                <tr>
-                  <td colspan="4" class="text-center py-5">
-                    <i class="bi bi-cart-x display-4 text-muted mb-2 d-block"></i>
-                    <h6 class="text-muted fw-semibold">Keranjang masih kosong</h6>
-                    <small class="text-muted">Pilih produk dari katalog di sebelah kiri.</small>
-                  </td>
-                </tr>
-                @endforelse
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {{-- TOTAL PEMBAYARAN & CHECKOUT --}}
-        <div class="p-4 border-top bg-light">
-          <div class="total-display-card mb-4">
-            <span class="text-white-50 text-uppercase fw-bold fs-7">Total Tagihan</span>
-            <h3 class="fw-bold m-0 mt-1 fs-1">
-              Rp {{ number_format($sale->total_pembayaran ?? 0, 0, ',', '.') }}
-            </h3>
-          </div>
-
-          <form
-            method="POST"
-            action="{{ route('penjualan.update', $sale->id) }}"
-            onsubmit="return confirm('Selesaikan transaksi dan lakukan checkout?')">
-            @csrf
-            @method('PUT')
-
-            <div class="mb-3">
-              <label class="form-label fw-bold text-dark small">
-                <i class="bi bi-credit-card me-1"></i> Metode Pembayaran
-              </label>
-              <select
-                name="payment_method"
-                class="form-select"
-                required
-                {{ ($sale->status ?? '') == 'COMPLETED' ? 'disabled' : '' }}>
-                <option value="">-- Pilih Metode Pembayaran --</option>
-                <option value="CASH">💵 Cash / Tunai</option>
-                <option value="QRIS">📱 QRIS / Non Tunai</option>
-              </select>
+                </div>
             </div>
 
-            <button
-              type="submit"
-              class="btn btn-checkout w-100 {{ ($sale->status ?? '') == 'COMPLETED' ? 'disabled' : '' }}">
-              <i class="bi bi-check-circle me-2"></i>Checkout & Selesaikan
-            </button>
-          </form>
+            {{-- ================= KERANJANG ================= --}}
+            <div class="col-lg-5">
+                <div class="pos-card h-100 d-flex flex-column justify-content-between">
 
-          @can('delete', $sale)
-          <form
-            action="{{ route('penjualan.destroy', $sale->id) }}"
-            method="POST"
-            class="mt-2"
-            onsubmit="return confirm('Apakah Anda yakin ingin membatalkan transaksi ini?')">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-outline-danger btn-cancel-pos w-100 btn-sm">
-              <i class="bi bi-x-circle me-1"></i>Batalkan Transaksi
-            </button>
-          </form>
-          @endcan
+                    <div>
+                        <div class="pos-card-header">
+                            <span>🛒 Keranjang Belanja</span>
+                            <span class="badge" style="background: rgba(37,99,235,0.3); border: 1px solid rgba(37,99,235,0.5); color: #93C5FD; padding: 6px 12px; border-radius: 8px;">
+                                {{ count($sale->itempenjualan ?? []) }} Item
+                            </span>
+                        </div>
+
+                        {{-- TABEL ITEM --}}
+                        <div class="table-responsive px-3 py-2" style="max-height: 420px; overflow-y: auto;">
+                            <table class="table cart-table align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Produk</th>
+                                        <th width="85">Qty</th>
+                                        <th class="text-end">Subtotal</th>
+                                        <th width="50"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($sale->itempenjualan ?? [] as $item)
+                                        <tr>
+                                            <td>
+                                                <div class="fw-bold">{{ $item->produk->nama ?? 'Produk Dihapus' }}</div>
+                                                <small style="color: var(--color-gray)">
+                                                    Rp {{ number_format($item->produk->harga_jual ?? $item->harga_satuan, 0, ',', '.') }}
+                                                </small>
+                                            </td>
+
+                                            <td>
+                                                <form method="POST" action="{{ route('itempenjualan.update', $item->id) }}">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input
+                                                        type="number"
+                                                        name="kuantitas"
+                                                        value="{{ $item->kuantitas }}"
+                                                        min="1"
+                                                        class="form-control qty-input-pos"
+                                                        style="width: 70px; height: 35px;"
+                                                        onchange="this.form.submit()"
+                                                        {{ ($sale->status ?? '') == 'COMPLETED' ? 'disabled' : '' }}>
+                                                </form>
+                                            </td>
+
+                                            <td class="text-end fw-bold" style="color: #93C5FD;">
+                                                Rp {{ number_format($item->subtotal, 0, ',', '.') }}
+                                            </td>
+
+                                            <td class="text-center">
+                                                @can('delete', $item)
+                                                    <form method="POST" action="{{ route('itempenjualan.destroy', $item->id) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-sm btn-outline-danger border-0 p-2 d-flex align-items-center justify-content-center" type="submit" style="border-radius: 8px;">
+                                                            <i class="bi bi-trash3-fill"></i>
+                                                        </button>
+                                                    </form>
+                                                @endcan
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="4" class="text-center py-5">
+                                                <div style="font-size: 45px; opacity: 0.3; margin-bottom: 10px;">🛒</div>
+                                                <p style="color: var(--color-gray); font-size: 15px;">Keranjang Anda masih kosong</p>
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    {{-- ================= FORM PEMBAYARAN ================= --}}
+                    <div class="payment-section">
+
+                        <div class="total-display-card">
+                            <small>Total Tagihan</small>
+                            <h3>Rp {{ number_format($sale->total_pembayaran ?? 0, 0, ',', '.') }}</h3>
+                        </div>
+
+                        @if(isset($sale->id))
+                            <form
+                                method="POST"
+                                action="{{ route('penjualan.update', $sale->id) }}"
+                                onsubmit="return confirm('Selesaikan transaksi?')"
+                                class="mt-4">
+                                @csrf
+                                @method('PUT')
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold small text-white-50 mb-2">METODE PEMBAYARAN</label>
+                                    <select
+                                        name="payment_method"
+                                        class="form-select"
+                                        required
+                                        {{ ($sale->status ?? '') == 'COMPLETED' ? 'disabled' : '' }}>
+                                        <option value="">-- Pilih Metode --</option>
+                                        <option value="CASH">💵 Tunai (Cash)</option>
+                                        <option value="QRIS">📱 Non Tunai (QRIS)</option>
+                                    </select>
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-checkout w-100 d-flex align-items-center justify-content-center gap-2 {{ ($sale->status ?? '') == 'COMPLETED' ? 'disabled' : '' }}">
+                                    <i class="bi bi-check-circle-fill"></i> Checkout & Selesaikan
+                                </button>
+                            </form>
+
+                            @can('delete', $sale)
+                                <form
+                                    action="{{ route('penjualan.destroy', $sale->id) }}"
+                                    method="POST"
+                                    class="mt-3"
+                                    onsubmit="return confirm('Batalkan seluruh transaksi ini secara permanen?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-cancel-pos w-100 d-flex align-items-center justify-content-center gap-2">
+                                        <i class="bi bi-x-circle"></i> Batal & Hapus Transaksi
+                                    </button>
+                                </form>
+                            @endcan
+                        @endif
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-      </div>
     </div>
-  </div>
-
 </div>
 
 @endsection

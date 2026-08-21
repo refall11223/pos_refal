@@ -2,317 +2,281 @@
 
 @section('title', 'Daftar Produk T-Shirt')
 
-@push('styles')
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-<style>
-  :root {
-    --bg-main: #F8F9FA;
-    --card-bg: #FFFFFF;
-    --primary-black: #121212;
-    --soft-black: #1E1E1E;
-    --accent-gray: #343A40;
-    --text-muted: #6C757D;
-    --border-color: #E9ECEF;
-    --hover-bg: #F1F3F5;
-  }
-
-  body {
-    background-color: var(--bg-main);
-    color: var(--primary-black);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-  }
-
-  .serif-font {
-    font-family: 'Cinzel', serif;
-    letter-spacing: 0.5px;
-  }
-
-  /* Header Section */
-  .page-header {
-    background: linear-gradient(135deg, #121212 0%, #2B2B2B 100%);
-    border-radius: 16px;
-    padding: 2.5rem;
-    color: #FFFFFF;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    margin-bottom: 2rem;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .page-header::after {
-    content: '';
-    position: absolute;
-    top: -50px;
-    right: -50px;
-    width: 220px;
-    height: 220px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(0,0,0,0) 70%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  /* Card Container */
-  .content-card {
-    background: var(--card-bg);
-    border-radius: 16px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-    padding: 2rem;
-  }
-
-  /* Search Box Styling */
-  .search-box .form-control {
-    border-radius: 10px 0 0 10px;
-    border: 1px solid var(--border-color);
-    padding: 0.7rem 1.2rem;
-    background-color: #F8F9FA;
-    color: var(--primary-black);
-    font-size: 0.9rem;
-  }
-
-  .search-box .form-control:focus {
-    box-shadow: none;
-    border-color: var(--primary-black);
-    background-color: #FFFFFF;
-  }
-
-  .search-box .btn-search {
-    background-color: var(--primary-black);
-    color: #FFFFFF;
-    border-radius: 0 10px 10px 0;
-    padding: 0.7rem 1.4rem;
-    font-weight: 500;
-    border: 1px solid var(--primary-black);
-    transition: all 0.25s ease;
-  }
-
-  .search-box .btn-search:hover {
-    background-color: var(--accent-gray);
-    color: #FFFFFF;
-  }
-
-  /* Action Button Create + Animasi Klik */
-  .btn-create {
-    background-color: var(--primary-black);
-    color: #FFFFFF;
-    border: 1px solid var(--primary-black);
-    border-radius: 10px;
-    padding: 0.7rem 1.4rem;
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 0.3px;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    text-decoration: none;
-    position: relative;
-    overflow: hidden;
-    user-select: none;
-  }
-
-  .btn-create:hover {
-    background-color: #FFFFFF;
-    color: var(--primary-black);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
-  }
-
-  .btn-create:active {
-    transform: scale(0.95) translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Efek Ripple */
-  .ripple-effect {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    transform: scale(0);
-    animation: ripple-animation 0.6s linear;
-    pointer-events: none;
-  }
-
-  @keyframes ripple-animation {
-    to {
-      transform: scale(4);
-      opacity: 0;
-    }
-  }
-
-  /* Product Thumbnail */
-  .product-thumb {
-    width: 55px;
-    height: 55px;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 1px solid var(--border-color);
-    transition: transform 0.2s ease;
-  }
-
-  .product-thumb:hover {
-    transform: scale(1.08);
-  }
-
-  .thumb-placeholder {
-    width: 55px;
-    height: 55px;
-    background-color: #F1F3F5;
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    color: var(--text-muted);
-  }
-
-  /* Table Custom Styling */
-  .table-custom {
-    margin-bottom: 0;
-  }
-
-  .table-custom thead th {
-    background: #F8F9FA;
-    border-bottom: 2px solid var(--border-color);
-    color: var(--primary-black);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    padding: 16px;
-    font-weight: 700;
-  }
-
-  .table-custom tbody td {
-    padding: 16px;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--primary-black);
-    font-size: 0.9rem;
-  }
-
-  .table-custom tbody tr:last-child td {
-    border-bottom: none;
-  }
-
-  .table-custom tbody tr:hover {
-    background-color: var(--hover-bg);
-  }
-
-  /* Badges & Indicators */
-  .badge-stock-safe {
-    background-color: #E9ECEF;
-    color: #212529;
-    border: 1px solid #CED4DA;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.75rem;
-  }
-
-  .badge-stock-low {
-    background-color: #212529;
-    color: #FFFFFF;
-    border: 1px solid #212529;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.75rem;
-  }
-
-  /* Action Buttons inside Table */
-  .btn-action-detail {
-    background-color: #FFFFFF;
-    color: #495057;
-    border: 1px solid #CED4DA;
-    border-radius: 8px;
-    padding: 6px 12px;
-    font-weight: 600;
-    font-size: 0.8rem;
-    transition: all 0.2s ease;
-    text-decoration: none;
-  }
-
-  .btn-action-detail:hover {
-    background-color: #F8F9FA;
-    color: var(--primary-black);
-    border-color: var(--primary-black);
-  }
-
-  .btn-action-edit {
-    background-color: var(--accent-gray);
-    color: #FFFFFF;
-    border: 1px solid var(--accent-gray);
-    border-radius: 8px;
-    padding: 6px 12px;
-    font-weight: 600;
-    font-size: 0.8rem;
-    transition: all 0.2s ease;
-    text-decoration: none;
-  }
-
-  .btn-action-edit:hover {
-    background-color: var(--primary-black);
-    color: #FFFFFF;
-  }
-
-  .btn-action-delete {
-    background-color: #FFFFFF;
-    color: #212529;
-    border: 1px solid #212529;
-    border-radius: 8px;
-    padding: 6px 12px;
-    font-weight: 600;
-    font-size: 0.8rem;
-    transition: all 0.2s ease;
-  }
-
-  .btn-action-delete:hover {
-    background-color: #212529;
-    color: #FFFFFF;
-  }
-
-  /* Pagination Styling */
-  .pagination {
-    margin-bottom: 0;
-  }
-
-  .page-link {
-    color: var(--primary-black);
-    border-color: var(--border-color);
-  }
-
-  .page-item.active .page-link {
-    background-color: var(--primary-black);
-    border-color: var(--primary-black);
-    color: #FFFFFF;
-  }
-
-  .page-link:hover {
-    color: var(--primary-black);
-    background-color: var(--hover-bg);
-  }
-</style>
-@endpush
-
 @section('content')
 
 @include('layouts.navbar')
 
-<div class="container my-5">
-  <div class="page-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+{{-- Import Font Clean & Professional --}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+  :root {
+    --color-blue: #2563EB;
+    --color-black: #0F172A;
+    --color-gray: #94A3B8;
+  }
+
+  /* Base Typography Settings */
+  * {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  body {
+    background: linear-gradient(135deg, #1E3A8A 0%, var(--color-black) 100%);
+    color: #FFFFFF;
+    min-height: 100vh;
+  }
+
+  /* Header Section */
+  .dashboard-header {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    color: #FFFFFF;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(37, 99, 235, 0.2);
+    border: 1px solid rgba(37, 99, 235, 0.4);
+    color: #93C5FD;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+  }
+
+  .brand-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: #FFFFFF;
+    margin-bottom: 0.25rem;
+  }
+
+  .text-description {
+    font-size: 0.875rem;
+    color: #94A3B8;
+    font-weight: 400;
+  }
+
+  /* Main Card Container */
+  .luxury-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Buttons & Inputs */
+  .btn-create {
+    background-color: var(--color-blue);
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .btn-create:hover {
+    background-color: #1D4ED8;
+    color: #FFFFFF;
+  }
+
+  .search-box .form-control {
+    border-radius: 8px 0 0 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 0.875rem;
+    background-color: rgba(15, 23, 42, 0.5) !important;
+    color: #FFFFFF !important;
+    font-size: 0.875rem;
+  }
+
+  .search-box .form-control::placeholder {
+    color: var(--color-gray);
+  }
+
+  .search-box .form-control:focus {
+    box-shadow: none;
+    border-color: var(--color-blue);
+  }
+
+  .search-box .btn-search {
+    background-color: var(--color-blue);
+    color: #FFFFFF;
+    border-radius: 0 8px 8px 0;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+  }
+
+  /* Table Custom */
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .table-custom {
+    --bs-table-bg: transparent !important;
+    --bs-table-color: #FFFFFF !important;
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  .table-custom thead th {
+    background: rgba(15, 23, 42, 0.6) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    color: #94A3B8 !important;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.75rem 0.75rem;
+  }
+
+  .table-custom tbody td {
+    padding: 0.75rem 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: #FFFFFF !important;
+    font-size: 0.875rem;
+    vertical-align: middle;
+  }
+
+  .table-custom tbody tr:hover td {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+  }
+
+  /* Font Monospace untuk Angka & Harga */
+  .font-number {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.85rem;
+  }
+
+  /* Gambar Thumbnail */
+  .thumb-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .thumb-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Status Badges */
+  .badge-stock-safe,
+  .badge-stock-low {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .badge-stock-safe {
+    background-color: rgba(37, 99, 235, 0.2);
+    color: #93C5FD;
+    border: 1px solid rgba(37, 99, 235, 0.3);
+  }
+
+  .badge-stock-low {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #FCA5A5;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+  }
+
+  /* Action Buttons */
+  .btn-action {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #E2E8F0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+  }
+
+  .btn-action:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #FFFFFF;
+  }
+
+  .btn-action-edit:hover {
+    background-color: var(--color-blue);
+    border-color: var(--color-blue);
+    color: #FFFFFF;
+  }
+
+  .btn-action-delete:hover {
+    background-color: #DC2626;
+    border-color: #DC2626;
+    color: #FFFFFF;
+  }
+
+  /* Pagination */
+  .page-link {
+    color: #94A3B8;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    font-size: 0.85rem;
+  }
+
+  .page-item.active .page-link {
+    background-color: var(--color-blue);
+    border-color: var(--color-blue);
+    color: #FFFFFF;
+  }
+</style>
+
+<div class="container my-4">
+  
+  {{-- Header --}}
+  <div class="dashboard-header d-flex align-items-center justify-content-between flex-wrap gap-3">
     <div>
-      <h2 class="serif-font fw-bold m-0 fs-2">Koleksi T-Shirt</h2>
-      <p class="text-white-50 m-0 mt-1" style="font-size: 0.95rem;">Kelola katalog t-shirt, pembaruan stok, dan penetapan harga jual</p>
-    </div>
-    <div class="d-none d-md-block">
-      <i class="bi bi-tag display-4 text-white" style="opacity: 0.2;"></i>
+      <div class="header-badge">
+        <i class="bi bi-box-seam"></i> Inventaris
+      </div>
+      <h1 class="brand-title">Daftar Produk T-Shirt</h1>
+      <p class="text-description m-0">Kelola data produk, harga jual, dan ketersediaan stok.</p>
     </div>
   </div>
 
-  <div class="content-card">
-    <div class="row g-3 justify-content-between align-items-center mb-4">
+  {{-- Main Card --}}
+  <div class="luxury-card">
+    <div class="row g-2 justify-content-between align-items-center mb-3">
       <div class="col-md-5 col-lg-4">
         @can('create', App\Models\Produk::class)
           <a href="{{ route('produk.create') }}" class="btn btn-create d-inline-flex align-items-center gap-2">
-            <i class="bi bi-plus-lg"></i> Tambah Produk Baru
+            <i class="bi bi-plus-lg"></i> Tambah Produk
           </a>
         @endcan
       </div>
@@ -325,7 +289,7 @@
               name="search"
               value="{{ request('search') }}"
               class="form-control"
-              placeholder="Cari artikel t-shirt..."
+              placeholder="Cari nama produk..."
             >
             <button class="btn btn-search" type="submit">
               <i class="bi bi-search me-1"></i> Cari
@@ -335,58 +299,60 @@
       </div>
     </div>
 
+    {{-- Tabel --}}
     <div class="table-responsive">
       <table class="table table-custom align-middle">
         <thead>
           <tr>
-            <th scope="col" style="width: 5%;">#</th>
-            <th scope="col" class="text-center" style="width: 10%;">Gambar</th>
-            <th scope="col">Nama T-Shirt</th>
+            <th scope="col" class="text-center" style="width: 40px;">#</th>
+            <th scope="col" class="text-center" style="width: 70px;">Gambar</th>
+            <th scope="col">Nama Produk</th>
             <th scope="col">Penginput</th>
             <th scope="col">Harga Beli</th>
             <th scope="col">Harga Jual</th>
             <th scope="col" class="text-center">Stok</th>
-            <th scope="col" class="text-center" style="width: 22%;">Aksi</th>
+            <th scope="col" class="text-center" style="width: 180px;">Aksi</th>
           </tr>
         </thead>
         <tbody>
           @forelse ($products as $product)
           <tr>
-            <td class="text-muted fs-7">{{ $products->firstItem() + $loop->index }}</td>
-            <td class="text-center">
-              @if($product->foto)
-                <img src="{{ asset('storage/'.$product->foto) }}" class="product-thumb" alt="{{ $product->nama }}">
-              @else
-                <div class="thumb-placeholder d-flex align-items-center justify-content-center m-auto">
-                  <i class="bi bi-bag fs-5"></i>
-                </div>
-              @endif
-            </td>
-            <td class="fw-bold">{{ $product->nama }}</td>
-            <td class="text-secondary">
-              <div class="d-flex align-items-center gap-1">
-                <i class="bi bi-person me-1 text-muted"></i>
-                <span>{{ $product->user->name ?? 'Sistem' }}</span>
+            <td class="text-center text-white-50 font-number">{{ $products->firstItem() + $loop->index }}</td>
+            <td>
+              <div class="thumb-box">
+                @if($product->foto)
+                  <img src="{{ \Illuminate\Support\Facades\Storage::url($product->foto) }}" alt="Foto">
+                @else
+                  <i class="bi bi-image text-white-50 fs-5"></i>
+                @endif
               </div>
             </td>
-            <td class="fw-semibold text-secondary">Rp {{ number_format($product->harga_beli ?? 0, 0, ',', '.') }}</td>
-            <td class="fw-bold">Rp {{ number_format($product->harga_jual ?? 0, 0, ',', '.') }}</td>
+            <td class="fw-semibold text-white">{{ $product->nama }}</td>
+            <td class="text-white-50 fs-7">
+              <i class="bi bi-person me-1"></i>{{ $product->user->name ?? 'Sistem' }}
+            </td>
+            <td class="font-number text-white-50">Rp {{ number_format($product->harga_beli ?? 0, 0, ',', '.') }}</td>
+            <td class="font-number fw-semibold text-white">Rp {{ number_format($product->harga_jual ?? 0, 0, ',', '.') }}</td>
             <td class="text-center">
               @if($product->stok > 5)
-                <span class="badge-stock-safe"><i class="bi bi-check2 me-1"></i>{{ $product->stok }} Pcs</span>
+                <span class="badge-stock-safe font-number">
+                  <i class="bi bi-check"></i> {{ $product->stok }} Pcs
+                </span>
               @else
-                <span class="badge-stock-low"><i class="bi bi-exclamation-circle me-1"></i>{{ $product->stok }} Pcs</span>
+                <span class="badge-stock-low font-number">
+                  <i class="bi bi-exclamation"></i> {{ $product->stok }} Pcs
+                </span>
               @endif
             </td>
-            <td class="text-center">
-              <div class="d-flex justify-content-center gap-2">
-                <a href="{{ route('produk.show', $product) }}" class="btn btn-action-detail">
-                  <i class="bi bi-eye me-1"></i> Detail
+            <td>
+              <div class="d-flex justify-content-center align-items-center gap-1">
+                <a href="{{ route('produk.show', $product) }}" class="btn btn-action text-decoration-none" title="Detail">
+                  <i class="bi bi-eye"></i> Detail
                 </a>
 
                 @can('update', $product)
-                  <a href="{{ route('produk.edit', $product) }}" class="btn btn-action-edit">
-                    <i class="bi bi-pencil me-1"></i> Edit
+                  <a href="{{ route('produk.edit', $product) }}" class="btn btn-action btn-action-edit text-decoration-none" title="Edit">
+                    <i class="bi bi-pencil"></i> Edit
                   </a>
                 @endcan
 
@@ -394,8 +360,8 @@
                   <form action="{{ route('produk.destroy', $product) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-action-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?')">
-                      <i class="bi bi-trash me-1"></i> Hapus
+                    <button type="submit" class="btn btn-action btn-action-delete" onclick="return confirm('Hapus produk ini?')" title="Hapus">
+                      <i class="bi bi-trash"></i> Hapus
                     </button>
                   </form>
                 @endcan
@@ -404,9 +370,9 @@
           </tr>
           @empty
           <tr>
-            <td colspan="8" class="text-muted text-center py-5">
-              <i class="bi bi-inbox fs-1 d-block text-muted mb-2"></i>
-              <span class="fw-semibold">Data produk t-shirt tidak ditemukan atau belum tersedia.</span>
+            <td colspan="8" class="text-white-50 text-center py-4">
+              <i class="bi bi-inbox fs-3 d-block text-white-50 mb-1"></i>
+              Data produk tidak ditemukan.
             </td>
           </tr>
           @endforelse
@@ -414,35 +380,11 @@
       </table>
     </div>
 
-    <div class="mt-4">
+    <div class="mt-3">
       {{ $products->withQueryString()->links() }}
     </div>
   </div>
+
 </div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.btn-create').forEach(button => {
-      button.addEventListener('click', function (e) {
-        const circle = document.createElement('span');
-        const diameter = Math.max(this.clientWidth, this.clientHeight);
-        const radius = diameter / 2;
-
-        const rect = this.getBoundingClientRect();
-        circle.style.width = circle.style.height = `${diameter}px`;
-        circle.style.left = `${e.clientX - rect.left - radius}px`;
-        circle.style.top = `${e.clientY - rect.top - radius}px`;
-        circle.classList.add('ripple-effect');
-
-        const ripple = this.querySelector('.ripple-effect');
-        if (ripple) {
-          ripple.remove();
-        }
-
-        this.appendChild(circle);
-      });
-    });
-  });
-</script>
 
 @endsection

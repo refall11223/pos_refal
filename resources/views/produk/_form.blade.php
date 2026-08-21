@@ -2,81 +2,107 @@
 
 <style>
   :root {
-    --primary-black: #121212;
-    --soft-black: #2B2B2B;
-    --accent-gray: #343A40;
-    --border-color: #E9ECEF;
-    --bg-light: #F8F9FA;
+    --color-blue: #2563EB;
+    --color-black: #0F172A;
+    --color-gray: #94A3B8;
   }
 
   .form-label-custom {
     font-weight: 600;
     font-size: 0.875rem;
-    color: var(--primary-black);
+    color: #FFFFFF;
     margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .form-control-custom {
-    border-radius: 10px;
-    border: 1px solid var(--border-color);
-    padding: 0.65rem 1rem;
-    font-size: 0.9rem;
-    background-color: var(--bg-light);
-    color: var(--primary-black);
-    transition: all 0.2s ease;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    padding: 0.65rem 1rem !important;
+    font-size: 0.9rem !important;
+    background-color: rgba(15, 23, 42, 0.4) !important;
+    color: #FFFFFF !important;
+    transition: all 0.25s ease !important;
+  }
+
+  .form-control-custom::placeholder {
+    color: var(--color-gray) !important;
   }
 
   .form-control-custom:focus {
-    background-color: #FFFFFF;
-    border-color: var(--primary-black);
-    box-shadow: 0 0 0 3px rgba(18, 18, 18, 0.1);
-    color: var(--primary-black);
+    background-color: rgba(15, 23, 42, 0.6) !important;
+    border-color: var(--color-blue) !important;
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.4) !important;
+    color: #FFFFFF !important;
   }
 
   .img-preview-box {
-    border: 2px dashed #CED4DA;
-    border-radius: 12px;
+    border: 2px dashed rgba(255, 255, 255, 0.25);
+    border-radius: 14px;
     padding: 10px;
     text-align: center;
-    background-color: var(--bg-light);
+    background-color: rgba(15, 23, 42, 0.4);
     min-height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    backdrop-filter: blur(8px);
   }
 
   .btn-submit-mono {
-    background-color: var(--primary-black);
+    background-color: var(--color-blue) !important;
     color: #FFFFFF !important;
-    border: 1px solid var(--primary-black);
-    border-radius: 10px;
+    border: 1px solid rgba(37, 99, 235, 0.5) !important;
+    border-radius: 12px;
     padding: 0.7rem 1.6rem;
     font-weight: 600;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
   }
 
   .btn-submit-mono:hover {
-    background-color: var(--accent-gray);
-    border-color: var(--accent-gray);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background-color: #1D4ED8 !important;
+    border-color: #1D4ED8 !important;
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    transform: translateY(-2px);
   }
 
   .btn-cancel-mono {
-    background-color: #FFFFFF;
-    color: var(--primary-black) !important;
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 12px;
     padding: 0.7rem 1.6rem;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
   }
 
   .btn-cancel-mono:hover {
-    background-color: var(--bg-light);
-    border-color: #CED4DA;
+    background-color: rgba(255, 255, 255, 0.18) !important;
+    border-color: rgba(255, 255, 255, 0.35) !important;
+    color: #FFFFFF !important;
+  }
+
+  .border-top-custom {
+    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
   }
 </style>
+
+{{-- Ringkasan Error Atas (Membantu Pengguna Mengetahui Kesalahan) --}}
+@if ($errors->any())
+  <div class="alert text-white mb-4" style="background: rgba(220, 38, 38, 0.25); border: 1px solid rgba(239, 68, 68, 0.5); backdrop-filter: blur(10px); border-radius: 14px;">
+    <div class="fw-bold mb-1 d-flex align-items-center gap-2">
+      <i class="bi bi-exclamation-octagon-fill text-danger fs-5"></i> Gagal Menyimpan Data
+    </div>
+    <ul class="mb-0 ps-3 small text-white-50">
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+@endif
 
 <div class="row g-4">
   {{-- Area Upload & Preview Foto --}}
@@ -100,9 +126,9 @@
                onchange="previewImage(this)"
                class="form-control form-control-custom @error('foto') is-invalid @enderror"
                accept="image/*">
-        <small class="text-muted mt-1 d-block">Format: JPG, JPEG, PNG (Maks. 2MB)</small>
+        <small class="text-white-50 mt-1 d-block">Format: JPG, JPEG, PNG, WEBP (Maks. 2MB)</small>
         @error('foto')
-          <div class="invalid-feedback d-block">
+          <div class="invalid-feedback d-block text-danger mt-1">
             {{ $message }}
           </div>
         @enderror
@@ -113,8 +139,8 @@
         <label class="form-label-custom d-block">Preview Foto Baru</label>
         <div class="img-preview-box" id="preview-container">
           <img id="preview" class="img-fluid rounded-3" style="display:none; max-height: 140px; object-fit: cover;">
-          <span id="preview-placeholder" class="text-muted fs-7">
-            <i class="bi bi-image fs-3 d-block mb-1"></i>
+          <span id="preview-placeholder" class="text-white-50 fs-7">
+            <i class="bi bi-image fs-3 d-block mb-1 text-white-50"></i>
             Pratinjau foto akan tampil di sini
           </span>
         </div>
@@ -127,13 +153,14 @@
     <label class="form-label-custom">Nama Produk</label>
     <input type="text" 
            name="name"
-           class="form-control form-control-custom @error('name') is-invalid @enderror"
-           value="{{ old('name', $produk->nama ?? '') }}"
+           class="form-control form-control-custom @error('name') is-invalid @enderror @error('nama') is-invalid @enderror"
+           value="{{ old('name', old('nama', $produk->nama ?? '')) }}"
            placeholder="Contoh: Heavyweight Cotton T-Shirt Black">
     @error('name')
-      <div class="invalid-feedback">
-        {{ $message }}
-      </div>
+      <div class="invalid-feedback d-block text-danger mt-1">{{ $message }}</div>
+    @enderror
+    @error('nama')
+      <div class="invalid-feedback d-block text-danger mt-1">{{ $message }}</div>
     @enderror
   </div>
 
@@ -142,13 +169,14 @@
     <label class="form-label-custom">Harga Beli (Rp)</label>
     <input type="number" 
            name="purchase_price"
-           class="form-control form-control-custom @error('purchase_price') is-invalid @enderror"
-           value="{{ old('purchase_price', $produk->harga_beli ?? '') }}"
+           class="form-control form-control-custom @error('purchase_price') is-invalid @enderror @error('harga_beli') is-invalid @enderror"
+           value="{{ old('purchase_price', old('harga_beli', $produk->harga_beli ?? '')) }}"
            placeholder="0">
     @error('purchase_price')
-      <div class="invalid-feedback">
-        {{ $message }}
-      </div>
+      <div class="invalid-feedback d-block text-danger mt-1">{{ $message }}</div>
+    @enderror
+    @error('harga_beli')
+      <div class="invalid-feedback d-block text-danger mt-1">{{ $message }}</div>
     @enderror
   </div>
 
@@ -156,13 +184,14 @@
     <label class="form-label-custom">Harga Jual (Rp)</label>
     <input type="number" 
            name="selling_price"
-           class="form-control form-control-custom @error('selling_price') is-invalid @enderror"
-           value="{{ old('selling_price', $produk->harga_jual ?? '') }}"
+           class="form-control form-control-custom @error('selling_price') is-invalid @enderror @error('harga_jual') is-invalid @enderror"
+           value="{{ old('selling_price', old('harga_jual', $produk->harga_jual ?? '')) }}"
            placeholder="0">
     @error('selling_price')
-      <div class="invalid-feedback">
-        {{ $message }}
-      </div>
+      <div class="invalid-feedback d-block text-danger mt-1">{{ $message }}</div>
+    @enderror
+    @error('harga_jual')
+      <div class="invalid-feedback d-block text-danger mt-1">{{ $message }}</div>
     @enderror
   </div>
 
@@ -171,18 +200,19 @@
     <label class="form-label-custom">Jumlah Stok</label>
     <input type="number" 
            name="stock"
-           class="form-control form-control-custom @error('stock') is-invalid @enderror"
-           value="{{ old('stock', $produk->stok ?? '') }}"
+           class="form-control form-control-custom @error('stock') is-invalid @enderror @error('stok') is-invalid @enderror"
+           value="{{ old('stock', old('stok', $produk->stok ?? '')) }}"
            placeholder="0">
     @error('stock')
-      <div class="invalid-feedback">
-        {{ $message }}
-      </div>
+      <div class="invalid-feedback d-block text-danger mt-1">{{ $message }}</div>
+    @enderror
+    @error('stok')
+      <div class="invalid-feedback d-block text-danger mt-1">{{ $message }}</div>
     @enderror
   </div>
 
   {{-- Tombol Aksi --}}
-  <div class="col-12 d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+  <div class="col-12 d-flex justify-content-end gap-2 mt-4 pt-3 border-top-custom">
     @if(Route::has('produk.index'))
       <a href="{{ route('produk.index') }}" class="btn btn-cancel-mono text-decoration-none">
         Batal

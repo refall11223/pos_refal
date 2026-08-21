@@ -19,19 +19,18 @@ class UserController extends Controller
     {
         $keyword = $request->input('search');
 
-        if($keyword) {
-            $users = User::whereRaw("MATCH(name, email) AGAINST(? IN BOOLEAN MODE)", [$keyword])
+        $users = User::query()
+            ->when($keyword, function ($query, $keyword) {
+                $query->where(function ($q) use ($keyword) {
+                    $q->where('name', 'LIKE', "%{$keyword}%")
+                      ->orWhere('email', 'LIKE', "%{$keyword}%");
+                });
+            })
             ->paginate(10)
             ->withQueryString();
-        }else {
-            $users = User::query()->paginate(10)->withQueryString();
-        }
-        
-
 
         return view('users.index', compact('users'));
     }
-    
 
     /**
      * Show the form for creating a new resource.
@@ -75,7 +74,7 @@ class UserController extends Controller
     {
         $roles = Role::all();
 
-        return view('users.edit', compact('user','roles'));
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -85,9 +84,9 @@ class UserController extends Controller
     {
         $dataReq = $request->validated();
 
-        $user->name      =$dataReq['name'];
-        $user->email     =$dataReq['email'];
-        $user->role_id   =$dataReq['role_id'];
+        $user->name = $dataReq['name'];
+        $user->email = $dataReq['email'];
+        $user->role_id = $dataReq['role_id'];
 
         if (!empty($dataReq['password'])) {
             $user->password = Hash::make($dataReq['password']);
@@ -95,7 +94,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('admin.users.edit',$user->id)->with('success', 'User updated');
+        return redirect()->route('admin.users.edit', $user->id)->with('success', 'User updated');
     }
 
     /**
