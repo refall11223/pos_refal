@@ -198,12 +198,6 @@
     color: #FFFFFF;
   }
 
-  .btn-action-edit:hover {
-    background-color: var(--color-blue);
-    border-color: var(--color-blue);
-    color: #FFFFFF;
-  }
-
   .btn-action-delete:hover {
     background-color: #DC2626;
     border-color: #DC2626;
@@ -309,21 +303,14 @@
                   <i class="bi bi-eye"></i> Detail
                 </a>
 
-                @if($sale->status === 'OPEN')
-                  <a href="{{ route('penjualan.edit', $sale) }}" class="btn btn-action btn-action-edit text-decoration-none" title="Edit">
-                    <i class="bi bi-pencil"></i> Edit
-                  </a>
-
-                  @can('delete', $sale)
-                    <form action="{{ route('penjualan.destroy', $sale) }}" method="POST" class="d-inline">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn btn-action btn-action-delete" onclick="return confirm('Batalkan transaksi ini?')" title="Batal">
-                        <i class="bi bi-trash"></i>
-                      </button>
-                    </form>
-                  @endcan
-                @endif
+                {{-- TOMBOL HAPUS (Langsung ditampilkan tanpa syarat status/policy) --}}
+                <form action="{{ route('penjualan.destroy', $sale) }}" method="POST" class="d-inline">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-action btn-action-delete" onclick="return confirm('Hapus/Batalkan transaksi ini?')" title="Hapus">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </form>
               </div>
             </td>
           </tr>

@@ -11,7 +11,7 @@
 
     :root {
         --color-blue: #2563EB;
-        --color-blue-glow: rgba(37, 99, 235, 0.4);
+        --color-blue-glow: rgba(37, 99, 235, 0.35);
         --color-black: #0F172A;
         --color-gray: #94A3B8;
     }
@@ -25,7 +25,7 @@
         min-height: 100vh;
     }
 
-    /* Ornamen Glow Background */
+    /* Background Glow Effect */
     .pos-wrapper {
         position: relative;
         overflow: hidden;
@@ -55,37 +55,37 @@
     /* ================= HEADER ================= */
     .page-header {
         background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
         border-radius: 20px;
-        padding: 22px 28px;
+        padding: 20px 26px;
         color: #FFFFFF;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         margin-bottom: 25px;
         border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .page-header h2 {
-        font-size: 26px;
+        font-size: 24px;
         font-weight: 700;
         margin-bottom: 4px;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.3px;
     }
 
     .page-header p {
-        font-size: 14px;
+        font-size: 13.5px;
         margin: 0;
         color: var(--color-gray);
     }
 
     .status-box {
-        background: rgba(15, 23, 42, 0.6);
+        background: rgba(15, 23, 42, 0.7);
         color: #FFFFFF;
         padding: 8px 18px;
         border-radius: 30px;
         font-weight: 600;
         font-size: 13px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     /* ================= CARD ================= */
@@ -102,14 +102,14 @@
     .pos-card-header {
         background: rgba(255, 255, 255, 0.03);
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        padding: 18px 22px;
+        padding: 16px 22px;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
 
     .pos-card-header span {
-        font-size: 18px;
+        font-size: 17px;
         font-weight: 700;
         color: #FFFFFF;
     }
@@ -148,7 +148,7 @@
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
         padding: 12px;
-        transition: all 0.3s ease;
+        transition: all 0.25s ease;
         margin-bottom: 8px;
     }
 
@@ -172,7 +172,7 @@
         width: 50px;
         height: 50px;
         border-radius: 10px;
-        background: rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.08);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -185,6 +185,7 @@
         font-weight: 700;
         color: #FFFFFF;
         margin-bottom: 4px;
+        word-break: break-word;
     }
 
     /* ================= HARGA ================= */
@@ -227,11 +228,11 @@
         color: #ffffff;
         font-size: 16px;
         font-weight: 700;
-        transition: all 0.3s ease;
+        transition: all 0.25s ease;
         cursor: pointer;
     }
 
-    .btn-add-pos:hover {
+    .btn-add-pos:hover:not(:disabled) {
         background: #1D4ED8;
         transform: scale(1.05);
         box-shadow: 0 0 15px var(--color-blue-glow);
@@ -239,14 +240,14 @@
 
     /* ================= CART ================= */
     .cart-table th {
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 700;
         color: var(--color-gray);
         text-transform: uppercase;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
         background: transparent !important;
-        padding-top: 15px;
-        padding-bottom: 15px;
+        padding-top: 12px;
+        padding-bottom: 12px;
     }
 
     .cart-table td {
@@ -265,10 +266,10 @@
     }
 
     .total-display-card {
-        background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(15, 23, 42, 0.8));
-        border: 1px solid rgba(37, 99, 235, 0.3);
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.25), rgba(15, 23, 42, 0.85));
+        border: 1px solid rgba(37, 99, 235, 0.35);
         border-radius: 14px;
-        padding: 20px;
+        padding: 18px;
         color: #FFFFFF;
         text-align: center;
         box-shadow: inset 0 0 20px rgba(37, 99, 235, 0.1);
@@ -276,20 +277,20 @@
 
     .total-display-card small {
         display: block;
-        font-size: 14px;
-        font-weight: 600;
+        font-size: 12px;
+        font-weight: 700;
         color: #93C5FD;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
 
     .total-display-card h3 {
-        font-size: 34px;
+        font-size: 32px;
         font-weight: 800;
-        margin-top: 5px;
+        margin-top: 4px;
         margin-bottom: 0;
         color: #FFFFFF;
-        text-shadow: 0 0 15px rgba(255,255,255,0.3);
+        text-shadow: 0 0 15px rgba(255,255,255,0.2);
     }
 
     /* ================= FORM INPUTS & CHECKOUT ================= */
@@ -310,15 +311,15 @@
         height: 50px;
         border: none;
         border-radius: 12px;
-        background: #10B981; /* Emerald Green */
+        background: #10B981;
         color: #ffffff;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 700;
         transition: all 0.3s;
         box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
     }
 
-    .btn-checkout:hover {
+    .btn-checkout:hover:not(:disabled) {
         background: #059669;
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
@@ -340,27 +341,27 @@
         color: #FFFFFF;
     }
 
-    /* Scrollbar Styling */
-    ::-webkit-scrollbar {
+    /* Custom Scrollbar */
+    .custom-scroll::-webkit-scrollbar {
         width: 6px;
     }
-    ::-webkit-scrollbar-track {
+    .custom-scroll::-webkit-scrollbar-track {
         background: rgba(255, 255, 255, 0.02);
         border-radius: 10px;
     }
-    ::-webkit-scrollbar-thumb {
+    .custom-scroll::-webkit-scrollbar-thumb {
         background: rgba(255, 255, 255, 0.15);
         border-radius: 10px;
     }
-    ::-webkit-scrollbar-thumb:hover {
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
         background: rgba(255, 255, 255, 0.25);
     }
 </style>
 
 <div class="pos-wrapper">
-    <div class="container-fluid px-4 pt-4 pb-5">
+    <div class="container-fluid px-3 px-md-4 pt-4 pb-5">
 
-        {{-- NOTIFIKASI ERROR (Aman untuk Object maupun String) --}}
+        {{-- NOTIFIKASI ERROR --}}
         @if(isset($errors) && is_object($errors) && $errors->any())
             <div class="alert alert-danger mb-4" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #FCA5A5; border-radius: 12px;">
                 <ul class="mb-0 px-3">
@@ -395,7 +396,7 @@
 
             <div class="status-box shadow-sm">
                 Status Transaksi :
-                <span class="{{ ($sale->status ?? '') == 'COMPLETED' ? 'text-success' : 'text-warning' }} ms-1">
+                <span class="{{ ($sale->status ?? '') == 'COMPLETED' ? 'text-success fw-bold' : 'text-warning fw-bold' }} ms-1">
                     {{ $sale->status ?? 'OPEN' }}
                 </span>
             </div>
@@ -413,7 +414,7 @@
                         <small>Pilih item untuk ditambahkan</small>
                     </div>
 
-                    <div class="card-body p-4">
+                    <div class="card-body p-3 p-md-4">
 
                         {{-- SEARCH FORM --}}
                         <form method="GET" action="{{ route('penjualan.create') }}" class="mb-4">
@@ -423,11 +424,12 @@
                                 value="{{ request('search') }}"
                                 class="form-control pos-search"
                                 placeholder="🔍 Ketik nama produk lalu tekan Enter..."
+                                autocomplete="off"
                             >
                         </form>
 
                         {{-- LIST PRODUK --}}
-                        <div style="max-height: 580px; overflow-y: auto; padding-right: 8px;">
+                        <div class="custom-scroll" style="max-height: 560px; overflow-y: auto; padding-right: 6px;">
                             <div class="row g-2">
                                 @forelse($products as $product)
                                     <div class="col-12">
@@ -438,7 +440,7 @@
                                                 <input type="hidden" name="penjualan_id" value="{{ $sale->id }}">
                                             @endif
 
-                                            <div class="row align-items-center g-3">
+                                            <div class="row align-items-center g-2 g-sm-3">
                                                 {{-- FOTO --}}
                                                 <div class="col-auto">
                                                     @if($product->foto)
@@ -459,7 +461,7 @@
                                                 </div>
 
                                                 {{-- INPUT QUANTITY --}}
-                                                <div class="col-auto">
+                                                <div class="col-auto ms-auto ms-sm-0">
                                                     <input
                                                         type="number"
                                                         name="kuantitas"
@@ -483,7 +485,7 @@
                                     </div>
                                 @empty
                                     <div class="col-12 text-center py-5">
-                                        <div style="font-size: 3rem; color: rgba(255,255,255,0.2); margin-bottom: 15px;">🔍</div>
+                                        <div style="font-size: 3rem; opacity: 0.3; margin-bottom: 12px;">🔍</div>
                                         <h5 style="color: var(--color-gray)">Produk tidak ditemukan</h5>
                                     </div>
                                 @endforelse
@@ -507,21 +509,21 @@
                         </div>
 
                         {{-- TABEL ITEM --}}
-                        <div class="table-responsive px-3 py-2" style="max-height: 420px; overflow-y: auto;">
+                        <div class="table-responsive custom-scroll px-3 py-2" style="max-height: 420px; overflow-y: auto;">
                             <table class="table cart-table align-middle mb-0">
                                 <thead>
                                     <tr>
                                         <th>Produk</th>
-                                        <th width="85">Qty</th>
+                                        <th width="80">Qty</th>
                                         <th class="text-end">Subtotal</th>
-                                        <th width="50"></th>
+                                        <th width="40"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse($sale->itempenjualan ?? [] as $item)
                                         <tr>
                                             <td>
-                                                <div class="fw-bold">{{ $item->produk->nama ?? 'Produk Dihapus' }}</div>
+                                                <div class="fw-bold text-truncate" style="max-width: 130px;">{{ $item->produk->nama ?? 'Produk Dihapus' }}</div>
                                                 <small style="color: var(--color-gray)">
                                                     Rp {{ number_format($item->produk->harga_jual ?? $item->harga_satuan, 0, ',', '.') }}
                                                 </small>
@@ -537,7 +539,7 @@
                                                         value="{{ $item->kuantitas }}"
                                                         min="1"
                                                         class="form-control qty-input-pos"
-                                                        style="width: 70px; height: 35px;"
+                                                        style="width: 65px; height: 36px;"
                                                         onchange="this.form.submit()"
                                                         {{ ($sale->status ?? '') == 'COMPLETED' ? 'disabled' : '' }}>
                                                 </form>
@@ -552,7 +554,7 @@
                                                     <form method="POST" action="{{ route('itempenjualan.destroy', $item->id) }}">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button class="btn btn-sm btn-outline-danger border-0 p-2 d-flex align-items-center justify-content-center" type="submit" style="border-radius: 8px;">
+                                                        <button class="btn btn-sm btn-outline-danger border-0 p-2 d-flex align-items-center justify-content-center ms-auto" type="submit" style="border-radius: 8px;">
                                                             <i class="bi bi-trash3-fill"></i>
                                                         </button>
                                                     </form>
@@ -562,8 +564,8 @@
                                     @empty
                                         <tr>
                                             <td colspan="4" class="text-center py-5">
-                                                <div style="font-size: 45px; opacity: 0.3; margin-bottom: 10px;">🛒</div>
-                                                <p style="color: var(--color-gray); font-size: 15px;">Keranjang Anda masih kosong</p>
+                                                <div style="font-size: 40px; opacity: 0.3; margin-bottom: 8px;">🛒</div>
+                                                <p style="color: var(--color-gray); font-size: 14px;" class="mb-0">Keranjang Anda masih kosong</p>
                                             </td>
                                         </tr>
                                     @endforelse
@@ -597,8 +599,8 @@
                                         required
                                         {{ ($sale->status ?? '') == 'COMPLETED' ? 'disabled' : '' }}>
                                         <option value="">-- Pilih Metode --</option>
-                                        <option value="CASH">💵 Tunai (Cash)</option>
-                                        <option value="QRIS">📱 Non Tunai (QRIS)</option>
+                                        <option value="CASH" {{ ($sale->payment_method ?? '') == 'CASH' ? 'selected' : '' }}>💵 Tunai (Cash)</option>
+                                        <option value="QRIS" {{ ($sale->payment_method ?? '') == 'QRIS' ? 'selected' : '' }}>📱 Non Tunai (QRIS)</option>
                                     </select>
                                 </div>
 
